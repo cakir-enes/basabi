@@ -148,16 +148,16 @@ export enum WorkoutDetailsTargetOptions {
   "delts" = "delts",
   "legs" = "legs",
 }
-export type WorkoutDetailsRecord<Tcreated = unknown, Tduration_sec = unknown, Texercise = unknown, Tsets = unknown, Tuser = unknown, Tvol = unknown, Tworkout_date = unknown> = {
-  created?: null | Tcreated
-  duration_sec?: null | Tduration_sec
-  exercise?: null | Texercise
+export type WorkoutDetailsRecord = {
+  created: IsoDateString
+  duration_sec: number
+  exercise: RecordIdString
   id: string
-  sets?: null | Tsets
-  target?: WorkoutDetailsTargetOptions[]
-  user?: null | Tuser
-  vol?: null | Tvol
-  workout_date?: null | Tworkout_date
+  sets: { id: string; weight: number; reps: number }[]
+  target: WorkoutDetailsTargetOptions[]
+  user: RecordIdString
+  vol: number
+  workout_date: IsoDateString
 }
 
 export type WorkoutMetasRecord = {
@@ -179,7 +179,7 @@ export type ExercisesResponse<Texpand = unknown> = Required<ExercisesRecord> & B
 export type PrsResponse<Texpand = unknown> = Required<PrsRecord> & BaseSystemFields<Texpand>
 export type SetsResponse<Texpand = unknown> = Required<SetsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
-export type WorkoutDetailsResponse<Tcreated = unknown, Tduration_sec = unknown, Texercise = unknown, Tsets = unknown, Tuser = unknown, Tvol = unknown, Tworkout_date = unknown, Texpand = unknown> = Required<WorkoutDetailsRecord<Tcreated, Tduration_sec, Texercise, Tsets, Tuser, Tvol, Tworkout_date>> & BaseSystemFields<Texpand>
+export type WorkoutDetailsResponse<Texpand = unknown> = Required<WorkoutDetailsRecord> & BaseSystemFields<Texpand>
 export type WorkoutMetasResponse<Texpand = unknown> = Required<WorkoutMetasRecord> & BaseSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions

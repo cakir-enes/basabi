@@ -11,15 +11,17 @@ import { useTheme } from "@/components/theme-provider"
 import { ThemeProvider } from './components/theme-provider'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from 'jotai'
-import { BrowserRouter, Outlet, Route, Routes } from "react-router";
+import { BrowserRouter, Outlet, Route, Routes, useNavigate } from "react-router";
 import { Home, WorkoutDetails } from './pages/home'
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetTrigger } from "@/components/ui/sheet"
 import { NewExercise } from './components/newexercise'
 import { useSheetManager } from './hooks/useSheetManager'
+import { Separator } from './components/ui/separator'
 
 
 function AppLayout() {
   const sheets = useSheetManager()
+  const navigate = useNavigate()
 
   return <div className="h-dvh w-full px-4  grid grid-rows-[50px_1fr_50px]">
     {/* Fixed Header */}
@@ -32,9 +34,11 @@ function AppLayout() {
       <Outlet />
     </div>
     {/* Optional Fixed Footer */}
-    <footer className="flex-none bg-blue-300 p-4">
-      <Sheet open={sheets.sheets.exercise} onOpenChange={o => sheets.toggleSheet("exercise")}>
-        <SheetTrigger >Open</SheetTrigger>
+    <footer className="flex-none bg-foreground rounded-t-md p-4 text-background flex gap-2 items-center justify-end">
+      <span onClick={() => navigate("/")}>Home</span>
+      <Separator orientation='vertical' />
+      <Sheet open={sheets.sheets.exercise} onOpenChange={() => sheets.toggleSheet("exercise")}>
+        <SheetTrigger>New Exercise</SheetTrigger>
         <NewExercise />
       </Sheet>
     </footer>

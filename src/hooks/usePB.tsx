@@ -129,3 +129,18 @@ export function useExercisesQuery() {
     enabled: pb.authStore.isValid
   })
 }
+
+
+export function useWorkoutDetailsQuery(date?: string) {
+  const pb = useAtomValue(pocketbaseAtom)
+
+  return useQuery({
+    queryKey: ['workoutDetails', date],
+    queryFn: async () => {
+      return pb.collection("workout_details").getFullList({ filter: `workout_date = '${date}'`, sort: "created" })
+    },
+    enabled: pb.authStore.isValid && !!date
+  })
+
+
+}
