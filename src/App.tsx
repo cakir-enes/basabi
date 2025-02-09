@@ -11,9 +11,36 @@ import { useTheme } from "@/components/theme-provider"
 import { ThemeProvider } from './components/theme-provider'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider } from 'jotai'
-import { BrowserRouter, Route, Routes } from "react-router";
-import { Home } from './pages/home'
+import { BrowserRouter, Outlet, Route, Routes } from "react-router";
+import { Home, WorkoutDetails } from './pages/home'
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { NewExercise } from './components/newexercise'
+import { useSheetManager } from './hooks/useSheetManager'
 
+
+function AppLayout() {
+  const sheets = useSheetManager()
+
+  return <div className="h-dvh w-full px-4  grid grid-rows-[50px_1fr_50px]">
+    {/* Fixed Header */}
+    <header className="flex-none flex items-center">
+      <span className="text-3xl">Basabiiiii</span>
+    </header>
+
+    {/* Scrollable Content Area */}
+    <div className="w-full  flex flex-col overflow-auto">
+      <Outlet />
+    </div>
+    {/* Optional Fixed Footer */}
+    <footer className="flex-none bg-blue-300 p-4">
+      <Sheet open={sheets.sheets.exercise} onOpenChange={o => sheets.toggleSheet("exercise")}>
+        <SheetTrigger >Open</SheetTrigger>
+        <NewExercise />
+      </Sheet>
+    </footer>
+  </div>
+
+}
 
 function App() {
 
@@ -33,7 +60,10 @@ function App() {
         <ThemeProvider>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route element={<AppLayout />}>
+                <Route index element={<Home />} />
+                <Route path="/workout/:date" element={<WorkoutDetails />} />
+              </Route>
             </Routes>
           </BrowserRouter>
         </ThemeProvider>

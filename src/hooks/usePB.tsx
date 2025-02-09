@@ -34,7 +34,6 @@ export const authTokenAtom = atomWithStorage('auth-token', '');
 // Current user atom
 export const userAtom = atom<AuthRecord | null>(null);
 
-// hooks/auth.ts
 
 export function useAuth() {
   const pb = useAtomValue(pocketbaseAtom);
