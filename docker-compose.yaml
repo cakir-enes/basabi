@@ -41,6 +41,7 @@ services:
 volumes:
   pocketbase_data:
   pocketbase_public:
+  pb_migrations:
 
 networks:
   app-network:
