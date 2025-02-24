@@ -1,22 +1,22 @@
 /**
-* This file was @generated using pocketbase-typegen
-*/
+ * This file was @generated using pocketbase-typegen
+ */
 
 import type PocketBase from 'pocketbase'
 import type { RecordService } from 'pocketbase'
 
 export enum Collections {
-  Authorigins = "_authOrigins",
-  Externalauths = "_externalAuths",
-  Mfas = "_mfas",
-  Otps = "_otps",
-  Superusers = "_superusers",
-  Exercises = "exercises",
-  Prs = "prs",
-  Sets = "sets",
-  Users = "users",
-  WorkoutDetails = "workout_details",
-  WorkoutMetas = "workout_metas",
+  Authorigins = '_authOrigins',
+  Externalauths = '_externalAuths',
+  Mfas = '_mfas',
+  Otps = '_otps',
+  Superusers = '_superusers',
+  Exercises = 'exercises',
+  Prs = 'prs',
+  Sets = 'sets',
+  Users = 'users',
+  WorkoutDetails = 'workout_details',
+  WorkoutMetas = 'workout_metas',
 }
 
 // Alias types for improved usability
@@ -91,13 +91,13 @@ export type SuperusersRecord = {
 }
 
 export enum ExercisesTargetOptions {
-  "chest" = "chest",
-  "back" = "back",
-  "arm" = "arm",
-  "biceps" = "biceps",
-  "triceps" = "triceps",
-  "delts" = "delts",
-  "legs" = "legs",
+  'chest' = 'chest',
+  'back' = 'back',
+  'arm' = 'arm',
+  'biceps' = 'biceps',
+  'triceps' = 'triceps',
+  'delts' = 'delts',
+  'legs' = 'legs',
 }
 export type ExercisesRecord = {
   created: IsoDateString
@@ -118,6 +118,7 @@ export type PrsRecord = {
 
 export type SetsRecord = {
   created: IsoDateString
+  workout_date: IsoDateString
   exercise?: RecordIdString
   id: string
   reps: number
@@ -140,18 +141,19 @@ export type UsersRecord = {
 }
 
 export enum WorkoutDetailsTargetOptions {
-  "chest" = "chest",
-  "back" = "back",
-  "arm" = "arm",
-  "biceps" = "biceps",
-  "triceps" = "triceps",
-  "delts" = "delts",
-  "legs" = "legs",
+  'chest' = 'chest',
+  'back' = 'back',
+  'arm' = 'arm',
+  'biceps' = 'biceps',
+  'triceps' = 'triceps',
+  'delts' = 'delts',
+  'legs' = 'legs',
 }
 export type WorkoutDetailsRecord = {
   created: IsoDateString
   duration_sec: number
-  exercise: RecordIdString
+  exercise: string
+  exercise_id: RecordIdString
   id: string
   sets: { id: string; weight: number; reps: number }[]
   target: WorkoutDetailsTargetOptions[]
@@ -170,17 +172,23 @@ export type WorkoutMetasRecord = {
 }
 
 // Response types include system fields and match responses from the PocketBase API
-export type AuthoriginsResponse<Texpand = unknown> = Required<AuthoriginsRecord> & BaseSystemFields<Texpand>
-export type ExternalauthsResponse<Texpand = unknown> = Required<ExternalauthsRecord> & BaseSystemFields<Texpand>
+export type AuthoriginsResponse<Texpand = unknown> = Required<AuthoriginsRecord> &
+  BaseSystemFields<Texpand>
+export type ExternalauthsResponse<Texpand = unknown> = Required<ExternalauthsRecord> &
+  BaseSystemFields<Texpand>
 export type MfasResponse<Texpand = unknown> = Required<MfasRecord> & BaseSystemFields<Texpand>
 export type OtpsResponse<Texpand = unknown> = Required<OtpsRecord> & BaseSystemFields<Texpand>
-export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> & AuthSystemFields<Texpand>
-export type ExercisesResponse<Texpand = unknown> = Required<ExercisesRecord> & BaseSystemFields<Texpand>
+export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> &
+  AuthSystemFields<Texpand>
+export type ExercisesResponse<Texpand = unknown> = Required<ExercisesRecord> &
+  BaseSystemFields<Texpand>
 export type PrsResponse<Texpand = unknown> = Required<PrsRecord> & BaseSystemFields<Texpand>
 export type SetsResponse<Texpand = unknown> = Required<SetsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
-export type WorkoutDetailsResponse<Texpand = unknown> = Required<WorkoutDetailsRecord> & BaseSystemFields<Texpand>
-export type WorkoutMetasResponse<Texpand = unknown> = Required<WorkoutMetasRecord> & BaseSystemFields<Texpand>
+export type WorkoutDetailsResponse<Texpand = unknown> = Required<WorkoutDetailsRecord> &
+  BaseSystemFields<Texpand>
+export type WorkoutMetasResponse<Texpand = unknown> = Required<WorkoutMetasRecord> &
+  BaseSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
 

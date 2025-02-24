@@ -1,6 +1,9 @@
+import { ExerciseData, selectedExerciseAtom } from "@/components/newset"
 import { ScrollBar } from "@/components/ui/scroll-area"
 import { useAuth, useUser, useWorkoutDetailsQuery, useWorkoutsQuery } from "@/hooks/usePB"
+import { useSheetManager } from "@/hooks/useSheetManager"
 import { ScrollArea } from "@radix-ui/react-scroll-area"
+import { useSetAtom } from "jotai"
 import { DotIcon } from "lucide-react"
 import { useEffect } from "react"
 import { useNavigate, useParams } from "react-router"
@@ -35,6 +38,13 @@ export function WorkoutDetails() {
   const { date } = useParams()
 
   const detailsQuery = useWorkoutDetailsQuery(date)
+  const setExData = useSetAtom(selectedExerciseAtom)
+  const sheets = useSheetManager()
+
+  const openNewSet = (p: ExerciseData) => {
+    setExData(p)
+    sheets.openSheet("set")
+  }
 
   return <div>
     Waorkout Details for {date}
@@ -47,7 +57,7 @@ export function WorkoutDetails() {
             <ScrollArea className="w-52 overflow-auto whitespace-nowrap rounded-md border">
               <div className="flex w-max space-x-4 py-2">
                 {e.sets.map(s =>
-                  <div className="flex flex-col text-sm items-center">
+                  <div className="flex flex-col text-sm items-center" onClick={() => openNewSet({ id: e.exercise_id, name: e.exercise })}>
                     {s.weight}
                     <DotIcon className="-m-2" />
                     {s.reps}
